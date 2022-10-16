@@ -7,8 +7,8 @@ jobs:
     steps:
       - checkout
       - run: python --version
-      - run: make setup
-      - run: make install
+      - run: pip install --no-cache-dir --upgrade pip==22.3
+      - run: pip install --no-cache-dir -r requirements.txt
       - run: make lint
       - run: make test
       - run: docker --help
