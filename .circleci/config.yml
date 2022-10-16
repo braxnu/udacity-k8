@@ -9,14 +9,14 @@ jobs:
     docker:
       - image: cimg/python:3.7.14
     steps:
-      # - setup_remote_docker:
-      #     version: 20.10.14
+      - setup_remote_docker:
+          version: 20.10.14
       - checkout
       - run: python3 -m venv ~/.devops
       - run: source ~/.devops/bin/activate
       - run: pip install --no-cache-dir --upgrade pip==22.3
       - run: pip install --no-cache-dir -r requirements.txt
-      - docker/hadolint
+      - run: docker run --rm -i hadolint/hadolint < Dockerfile
       - run: pylint --disable=R,C,W1203,W1202 app.py
 
   test:
@@ -35,17 +35,21 @@ jobs:
     docker:
       - image: cimg/python:3.7.14
     steps:
+      - setup_remote_docker:
+          version: 20.10.14
       - checkout
-      - run: python3 -m venv ~/.devops
-      - run: source ~/.devops/bin/activate
-      - run: pip install --no-cache-dir --upgrade pip==22.3
-      - run: pip install --no-cache-dir -r requirements.txt
+      - run: docker build -t braxnu/uda-kube .
+      - run: docker login -u braxnu -p '$DOCKERHUB_PASSWORD'
+      - run: docker push braxnu/uda-kube:latest
 
 
 workflows:
   default:
     jobs:
       - lint
+      - test:
+          requires:
+            - lint
       - build:
           requires:
             - lint
