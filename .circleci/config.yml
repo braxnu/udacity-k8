@@ -1,6 +1,22 @@
 version: 2.1
 
 jobs:
+  lint:
+    docker:
+      - image: cimg/python:3.7.14
+    steps:
+      - setup_remote_docker:
+          version: 20.10.14
+      - checkout
+      - run: ls -la
+      - run: docker
+      # - run: python3 -m venv ~/.devops
+      # - run: source ~/.devops/bin/activate
+      # - run: pip install --no-cache-dir --upgrade pip==22.3
+      # - run: pip install --no-cache-dir -r requirements.txt
+      # - run: docker run --rm -i hadolint/hadolint < Dockerfile
+      # - run: pylint --disable=R,C,W1203,W1202 app.py
+
   build:
     docker:
       - image: cimg/python:3.7.14
@@ -20,4 +36,7 @@ jobs:
 workflows:
   default:
     jobs:
+      - lint
       - build
+        requires:
+          - lint
