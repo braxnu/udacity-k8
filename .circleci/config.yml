@@ -17,15 +17,15 @@ jobs:
       - run: docker run --rm -i hadolint/hadolint < Dockerfile
       - run: pylint --disable=R,C,W1203,W1202 app.py
 
-  test:
-    docker:
-      - image: cimg/python:3.7.14
-    steps:
-      - checkout
-      - run: pip install --no-cache-dir --upgrade pip==22.3
-      - run: pip install --no-cache-dir -r requirements.txt
-      - run: python -m pytest -vv --cov=myrepolib tests/*.py
-      - run: python -m pytest --nbval notebook.ipynb
+  # test:
+  #   docker:
+  #     - image: cimg/python:3.7.14
+  #   steps:
+  #     - checkout
+  #     - run: pip install --no-cache-dir --upgrade pip==22.3
+  #     - run: pip install --no-cache-dir -r requirements.txt
+  #     - run: python -m pytest -vv --cov=myrepolib tests/*.py
+  #     - run: python -m pytest --nbval notebook.ipynb
 
   build:
     docker:
@@ -43,9 +43,9 @@ workflows:
   default:
     jobs:
       - lint
-      - test:
-          requires:
-            - lint
+      # - test:
+      #     requires:
+      #       - lint
       - build:
           requires:
             - lint
