@@ -17,4 +17,4 @@ docker images
 # Step 3:
 # Run flask app
 
-docker run --rm -d -p 80:80 --name py_app braxnu/uda-kube
+docker run --rm -d -p 0.0.0.0:8080:80 --name py_app braxnu/uda-kube
