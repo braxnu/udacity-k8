@@ -21,4 +21,4 @@ RUN pip install --no-cache-dir --upgrade pip==22.3 && \
 
 ENV FLASK_APP=app.py
 
-CMD ["flask", "run", "--port 80"]
+CMD ["flask", "run", "--port", "80", "--host", "0.0.0.0"]

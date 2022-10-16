@@ -8,19 +8,21 @@
 setup:
 	# Create python virtualenv & source it
 	python3 -m venv ~/.devops
-	source ~/.devops/bin/activate
 
 install:
 	# This should be run from inside a virtualenv
+	source ~/.devops/bin/activate
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
 
 test:
 	# Additional, optional, tests could go here
+	source ~/.devops/bin/activate
 	python -m pytest -vv --cov=myrepolib tests/*.py
 	python -m pytest --nbval notebook.ipynb
 
 lint:
+	source ~/.devops/bin/activate
 	# See local hadolint install instructions:   https://github.com/hadolint/hadolint
 	# This is linter for Dockerfiles
 	docker run --rm -i hadolint/hadolint < Dockerfile

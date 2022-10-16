@@ -1,12 +1,20 @@
 #!/usr/bin/env bash
 
+set -e
+
 ## Complete the following steps to get Docker running locally
 
 # Step 1:
 # Build image and add a descriptive tag
 
-# Step 2: 
+docker build -t braxnu/uda-kube .
+
+# Step 2:
 # List docker images
 
-# Step 3: 
+docker images
+
+# Step 3:
 # Run flask app
+
+docker run --rm -d -p 80:80 --name py_app braxnu/uda-kube
