@@ -12,8 +12,6 @@ jobs:
       - setup_remote_docker:
           version: 20.10.14
       - checkout
-      - run: python3 -m venv ~/.devops
-      - run: source ~/.devops/bin/activate
       - run: pip install --no-cache-dir --upgrade pip==22.3
       - run: pip install --no-cache-dir -r requirements.txt
       - run: docker run --rm -i hadolint/hadolint < Dockerfile
@@ -24,12 +22,10 @@ jobs:
       - image: cimg/python:3.7.14
     steps:
       - checkout
-      - run: python3 -m venv ~/.devops
-      - run: source ~/.devops/bin/activate
       - run: pip install --no-cache-dir --upgrade pip==22.3
       - run: pip install --no-cache-dir -r requirements.txt
-      - run: make test
-      - run: docker --help
+    	- run: python -m pytest -vv --cov=myrepolib tests/*.py
+	    - run: python -m pytest --nbval notebook.ipynb
 
   build:
     docker:
