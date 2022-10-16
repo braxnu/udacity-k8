@@ -1,42 +1,52 @@
 version: 2.1
 
+orbs:
+  docker: circleci/docker@2.1.4
+
+
 jobs:
-  lint:
+  # lint:
+  #   docker:
+  #     - image: cimg/python:3.7.14
+  #   steps:
+  #     - setup_remote_docker:
+  #         version: 20.10.14
+  #     - checkout
+  #     - run: python3 -m venv ~/.devops
+  #     - run: source ~/.devops/bin/activate
+  #     - run: pip install --no-cache-dir --upgrade pip==22.3
+  #     - run: pip install --no-cache-dir -r requirements.txt
+  #     - run: docker run --rm -i hadolint/hadolint < Dockerfile
+  #     - run: pylint --disable=R,C,W1203,W1202 app.py
+
+  test:
     docker:
       - image: cimg/python:3.7.14
     steps:
-      - setup_remote_docker:
-          version: 20.10.14
       - checkout
-      - run: ls -la
-      - run: docker
-      # - run: python3 -m venv ~/.devops
-      # - run: source ~/.devops/bin/activate
-      # - run: pip install --no-cache-dir --upgrade pip==22.3
-      # - run: pip install --no-cache-dir -r requirements.txt
-      # - run: docker run --rm -i hadolint/hadolint < Dockerfile
-      # - run: pylint --disable=R,C,W1203,W1202 app.py
+      - run: python3 -m venv ~/.devops
+      - run: source ~/.devops/bin/activate
+      - run: pip install --no-cache-dir --upgrade pip==22.3
+      - run: pip install --no-cache-dir -r requirements.txt
+      - run: make test
+      - run: docker --help
 
   build:
     docker:
       - image: cimg/python:3.7.14
     steps:
       - checkout
-      - run: python --version
       - run: python3 -m venv ~/.devops
       - run: source ~/.devops/bin/activate
       - run: pip install --no-cache-dir --upgrade pip==22.3
       - run: pip install --no-cache-dir -r requirements.txt
-      - run: docker run --rm -i hadolint/hadolint < Dockerfile
-      - run: pylint --disable=R,C,W1203,W1202 app.py
-      - run: make test
-      - run: docker --help
 
 
 workflows:
   default:
     jobs:
-      - lint
-      - build:
+      - docker/hadolint
+      # - lint
+      - docker/build:
           requires:
             - lint
