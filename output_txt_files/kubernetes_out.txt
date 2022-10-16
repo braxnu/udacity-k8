@@ -1,1 +1,19 @@
-<paste log output from Kubernetes-mediated prediction, here>
+service "uda-py-depl" deleted
+deployment.apps "uda-py-depl" deleted
+deployment.apps/uda-py-depl created
+NAME                           READY   STATUS              RESTARTS   AGE
+uda-py-depl-6cf5c5f5b6-4jqpv   0/1     ContainerCreating   0          0s
+uda-py-depl-6cf5c5f5b6-4sxsd   1/1     Terminating         0          8s
+uda-py-depl-6cf5c5f5b6-jg97s   1/1     Terminating         0          40s
+uda-py-depl-6cf5c5f5b6-jnr5z   1/1     Terminating         0          40s
+uda-py-depl-6cf5c5f5b6-p678l   1/1     Terminating         0          8s
+uda-py-depl-6cf5c5f5b6-pfn9d   1/1     Terminating         0          40s
+uda-py-depl-6cf5c5f5b6-pqr8f   1/1     Terminating         0          40s
+uda-py-depl-6cf5c5f5b6-q945m   1/1     Terminating         0          8s
+uda-py-depl-6cf5c5f5b6-qqr88   0/1     ContainerCreating   0          0s
+uda-py-depl-6cf5c5f5b6-qz2wd   0/1     Pending             0          0s
+uda-py-depl-6cf5c5f5b6-skwnq   1/1     Terminating         0          8s
+uda-py-depl-6cf5c5f5b6-xgd4r   0/1     ContainerCreating   0          0s
+service/uda-py-depl exposed
+Forwarding from 127.0.0.1:8080 -> 80
+Forwarding from [::1]:8080 -> 80
