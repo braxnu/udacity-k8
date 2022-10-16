@@ -10,6 +10,7 @@ app = Flask(__name__)
 LOG = create_logger(app)
 LOG.setLevel(logging.INFO)
 
+# load pretrained model as clf
 clf = joblib.load("./model_data/boston_housing_prediction.joblib")
 
 def scale(payload):
@@ -64,10 +65,8 @@ def predict():
     scaled_payload = scale(inference_payload)
     # get an output prediction from the pretrained model, clf
     prediction = list(clf.predict(scaled_payload))
-    # TO DO:  Log the output prediction value
+    LOG.info(f"prediction: {prediction}")
     return jsonify({'prediction': prediction})
 
 if __name__ == "__main__":
-    # load pretrained model as clf
-    clf = joblib.load("./model_data/boston_housing_prediction.joblib")
     app.run(host='0.0.0.0', port=80, debug=True) # specify port=80

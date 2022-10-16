@@ -12,9 +12,10 @@ docker build -t braxnu/uda-kube .
 # Step 2:
 # List docker images
 
-docker images
+docker images | grep uda-kube
 
 # Step 3:
 # Run flask app
 
+docker kill py_app
 docker run --rm -d -p 0.0.0.0:8080:80 --name py_app braxnu/uda-kube
