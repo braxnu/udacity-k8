@@ -1,0 +1,22 @@
+version: 2.1
+
+executors:
+  python:
+    docker:
+      image: cimg/python:3.7.14
+
+
+jobs:
+  build:
+    build:
+      executor: python
+      steps:
+        - checkout
+        - run: python --version
+        - run: ls -l
+
+
+workflows:
+  default:
+    jobs:
+      - build
