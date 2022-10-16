@@ -11,7 +11,8 @@ jobs:
       - run: source ~/.devops/bin/activate
       - run: pip install --no-cache-dir --upgrade pip==22.3
       - run: pip install --no-cache-dir -r requirements.txt
-      - run: make lint
+      - run: docker run --rm -i hadolint/hadolint < Dockerfile
+      - run: pylint --disable=R,C,W1203,W1202 app.py
       - run: make test
       - run: docker --help
 
