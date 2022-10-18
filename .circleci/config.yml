@@ -35,7 +35,7 @@ jobs:
           version: 20.10.14
       - checkout
       - run: docker build -t braxnu/uda-kube .
-      - run: docker login -u braxnu -p '$DOCKERHUB_PASSWORD'
+      - run: echo "$DOCKERHUB_PASSWORD" | docker login -u braxnu -p --password-stdin
       - run: docker push braxnu/uda-kube:latest
 
 
